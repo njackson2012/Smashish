@@ -13,7 +13,6 @@ public class TestAttack : MonoBehaviour
     InputController inputController;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         playerOneHP = playerOne.GetComponent<PlayerHealth>();
