@@ -31,8 +31,10 @@ public class InputController : MonoBehaviour
     public string rbButton;
     [HideInInspector]
     public string lbButton;
+    [HideInInspector]
+    public string startButton;
 
-    private
+
 
     void Start()
     {
@@ -46,6 +48,8 @@ public class InputController : MonoBehaviour
             bButton = "B1";
             lbButton = "LB1";
             rbButton = "RB1";
+            startButton = "Start1";
+
         }
 
         if (gameObject.name == "Player2")
@@ -58,6 +62,7 @@ public class InputController : MonoBehaviour
             bButton = "B2";
             lbButton = "LB2";
             rbButton = "RB2";
+            startButton = "Start2";
         }
 
         controller = GetComponent<CharacterController>();

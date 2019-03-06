@@ -34,12 +34,12 @@ public class PlayerHealth : MonoBehaviour
     {
        
 
-        // Reduce the current health by the damage amount.
+
         currentHP -= amount;
         
         //playerAudio.Play();
 
-        // If the player has lost all it's health and the death flag hasn't been set yet...
+
         if (currentHP <= 0 && !isDead)
         {
             Death();
