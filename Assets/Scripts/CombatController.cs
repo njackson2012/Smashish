@@ -46,6 +46,7 @@ public class CombatController : MonoBehaviour
 			inAir = false;
 		}
 	}
+    /*
 	bool valid(string move){
 		if (move == "strike"){
 			return(! stumbling && ! striking && ! blocking);
@@ -63,4 +64,5 @@ public class CombatController : MonoBehaviour
 			return(! blocking);
 		}
 	}
+    */
 }
