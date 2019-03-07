@@ -15,12 +15,12 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead = false;
 
 
-    InputController inputController;
+    MovementController movement;
 
     void Start()
     {
         currentHP = startHP;
-        inputController = GetComponent<InputController>();
+        movement = GetComponent<MovementController>();
     }
 
     void Update() {
@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death() {
         isDead = true;
-        inputController.enabled = false;
+        movement.enabled = false;
     }
 
 }

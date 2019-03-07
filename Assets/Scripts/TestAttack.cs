@@ -10,19 +10,19 @@ public class TestAttack : MonoBehaviour
     PlayerHealth playerOneHP;
     PlayerHealth playerTwoHP;
 
-    InputController inputController;
+    InputManager input;
 
 
     void Start()
     {
         playerOneHP = playerOne.GetComponent<PlayerHealth>();
         playerTwoHP = playerTwo.GetComponent<PlayerHealth>();
-        inputController = GetComponent<InputController>();
+        input = GetComponent<InputManager>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown(inputController.bButton))
+        if (Input.GetButtonDown(input.bButton))
         {
             playerTwoHP.TakeDamage(10);
         }
