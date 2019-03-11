@@ -1973,6 +1973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960353697}
+  - component: {fileID: 960120898}
   m_Layer: 0
   m_Name: QuickRigCharacter_RightHand
   m_TagString: Untagged
@@ -1980,6 +1981,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &960120898
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960120897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.13, z: 0.07}
+  m_Center: {x: 0.09, y: 0.03, z: 0}
 --- !u!1 &960120899
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,6 +2099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960353711}
+  - component: {fileID: 960120912}
   m_Layer: 0
   m_Name: QuickRigCharacter_RightToeBase
   m_TagString: Untagged
@@ -2092,6 +2107,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &960120912
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960120911}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.16
+  m_Height: 0.12
+  m_Direction: 0
+  m_Center: {x: -0.08, y: 0, z: 0}
 --- !u!1 &960120913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960353715}
+  - component: {fileID: 960120916}
   m_Layer: 0
   m_Name: QuickRigCharacter_LeftToeBase
   m_TagString: Untagged
@@ -2124,6 +2154,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &960120916
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960120915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.16
+  m_Height: 0.12
+  m_Direction: 2
+  m_Center: {x: 0.08, y: 0, z: 0}
 --- !u!1 &960120917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960353717}
+  - component: {fileID: 960120918}
   m_Layer: 0
   m_Name: QuickRigCharacter_LeftHand
   m_TagString: Untagged
@@ -2140,6 +2185,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &960120918
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960120917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.13, z: 0.07}
+  m_Center: {x: -0.09, y: -0.03, z: 0}
 --- !u!1 &960120919
 GameObject:
   m_ObjectHideFlags: 0
