@@ -24,6 +24,7 @@ public class AttackController : MonoBehaviour
 			stateMachine.transition("strike");
             anim.SetTrigger("DownSmash");
             fire.Play();
+			stateMachine.transition("idle");
         }
 
         else if (Input.GetAxis(input.leftAnalogY) < 0 && Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
@@ -31,6 +32,7 @@ public class AttackController : MonoBehaviour
 			stateMachine.transition("strike");
             anim.SetTrigger("UpSmash");
             fire.Play();
+			stateMachine.transition("idle");
         }
     }
 }

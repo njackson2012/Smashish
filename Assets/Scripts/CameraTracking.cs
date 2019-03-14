@@ -8,7 +8,7 @@ public class CameraTracking : MonoBehaviour {
 	private Vector3 P1Position, P2Position, center;
 	private Renderer P1Renderer;
 	private Camera myCamera;
-	private float viewFieldOffset = 1.5f, viewSizeSpeed = 1.2f;
+	private float viewFieldOffset = 1.5f, viewSizeSpeed = 1.2f, upOffset = 4f;
 	
 	private const int UP = 3, DOWN = 2, LEFT = 0, RIGHT = 1;
 	private Plane[] cameraPlanes;
@@ -27,6 +27,7 @@ public class CameraTracking : MonoBehaviour {
 		P2Position = P2.transform.position;
 		center = P1Position + ((P2Position - P1Position)/2f);
 		center.z = -20f;
+        center.y += upOffset;
 		transform.position = center;
 		cameraPlanes = GeometryUtility.CalculateFrustumPlanes(myCamera);
 		

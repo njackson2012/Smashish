@@ -51,8 +51,14 @@ public class MovementController : MonoBehaviour
             moveDirection = new Vector3(Input.GetAxis(input.leftAnalogX), 0, 0);
             controller.Move(moveDirection * Time.deltaTime * walkSpeed);
             if (moveDirection != Vector3.zero && stateMachine.valid("move"))
-				stateMachine.transition("move");
+            {
+                stateMachine.transition("move");
                 transform.forward = moveDirection;
+            }
+            else
+            {
+                stateMachine.transition("idle");
+            }
             //moveDirection = transform.TransformDirection(moveDirection);
             //moveDirection *= walkSpeed;
 
@@ -61,6 +67,7 @@ public class MovementController : MonoBehaviour
 				stateMachine.transition("jump");
                 moveDirection.y = jumpHeight;
                 currentJumps++;
+				stateMachine.transition("idle");
             }
         }
 
