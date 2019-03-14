@@ -11,6 +11,7 @@ public class MovementController : MonoBehaviour
     private CharacterController controller;
     private Transform playerOneTransform;
     private Vector3 moveDirection = Vector3.zero;
+	private CombatController stateMachine;
     public float walkSpeed = 6.0f;
     public float jumpHeight = 13.0f;
     public float gravity = 20.0f;
@@ -25,6 +26,7 @@ public class MovementController : MonoBehaviour
         anim = GetComponent<Animator>();
         input = GetComponent<InputManager>();
         controller = GetComponent<CharacterController>();
+		stateMachine = GetComponent<CombatController>();
         currentJumps = 0;
     }
 
@@ -48,13 +50,15 @@ public class MovementController : MonoBehaviour
 
             moveDirection = new Vector3(Input.GetAxis(input.leftAnalogX), 0, 0);
             controller.Move(moveDirection * Time.deltaTime * walkSpeed);
-            if (moveDirection != Vector3.zero)
+            if (moveDirection != Vector3.zero && stateMachine.valid("move"))
+				stateMachine.transition("move");
                 transform.forward = moveDirection;
             //moveDirection = transform.TransformDirection(moveDirection);
             //moveDirection *= walkSpeed;
 
-            if (Input.GetButtonDown(input.xButton) || Input.GetButtonDown(input.yButton))
+            if ((Input.GetButtonDown(input.xButton) || Input.GetButtonDown(input.yButton)) && stateMachine.valid("jump"))
             {
+				stateMachine.transition("jump");
                 moveDirection.y = jumpHeight;
                 currentJumps++;
             }

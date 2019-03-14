@@ -16,7 +16,7 @@ public class CombatController : MonoBehaviour
 		
 	}
 	
-	void transition(string move)
+	public void transition(string move)
 	{
 		if (move == "strike"){
 			if (! inAir){
@@ -47,7 +47,7 @@ public class CombatController : MonoBehaviour
 		}
 	}
 
-	bool valid(string move){
+	public bool valid(string move){
 		if (move == "strike"){
 			return(! stumbling && ! striking && ! blocking);
 		}
