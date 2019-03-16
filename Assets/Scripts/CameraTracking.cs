@@ -8,7 +8,7 @@ public class CameraTracking : MonoBehaviour {
 	private Vector3 P1Position, P2Position, center;
 	private Renderer P1Renderer;
 	private Camera myCamera;
-	private float viewFieldOffset = 1.5f, viewSizeSpeed = 1.2f, upOffset = 4f;
+	private float viewFieldOffset = 1.5f, viewSizeSpeed = 1.2f, upOffset = 4f, currentZ = -20f;
 	
 	private const int UP = 3, DOWN = 2, LEFT = 0, RIGHT = 1;
 	private Plane[] cameraPlanes;
@@ -26,16 +26,18 @@ public class CameraTracking : MonoBehaviour {
 		P1Position = P1.transform.position;
 		P2Position = P2.transform.position;
 		center = P1Position + ((P2Position - P1Position)/2f);
-		center.z = -20f;
+		center.z = currentZ;
         center.y += upOffset;
 		transform.position = center;
 		cameraPlanes = GeometryUtility.CalculateFrustumPlanes(myCamera);
 		
 		if(offScreen()) {
-			myCamera.orthographicSize += viewSizeSpeed * Time.deltaTime;
+			myCamera.transform.Translate(Vector3.back * viewSizeSpeed * Time.deltaTime);
+			currentZ -= viewSizeSpeed * Time.deltaTime;
 		}
-		else if(myCamera.orthographicSize > 5f && Input.anyKey) {
-			myCamera.orthographicSize -= viewSizeSpeed * Time.deltaTime;
+		else if(myCamera.transform.position.z < -13f && Input.anyKey) {
+			myCamera.transform.Translate(Vector3.forward * viewSizeSpeed * Time.deltaTime);
+			currentZ += viewSizeSpeed * Time.deltaTime;
 		}
 	}
 	

@@ -9,7 +9,6 @@ public class MovementController : MonoBehaviour
     private Animator anim;
 
     private CharacterController controller;
-	private Animator anim;
     private Transform playerOneTransform;
     private Vector3 moveDirection = Vector3.zero;
 	private CombatController stateMachine;

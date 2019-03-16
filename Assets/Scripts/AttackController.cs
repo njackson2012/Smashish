@@ -18,7 +18,7 @@ public class AttackController : MonoBehaviour
         input = GetComponent<InputManager>();
         anim = GetComponent<Animator>();
 		stateMachine = GetComponent<CombatController>();
-		health = GetComponent<>(PlayerHealth);
+		health = GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class AttackController : MonoBehaviour
 				stateMachine.transition("strike");
 				anim.SetTrigger(attackType);
 				fire.Play();
-				while (anim.IsPlaying(attackType))
+				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
 					{
@@ -66,7 +66,7 @@ public class AttackController : MonoBehaviour
 				counter += Time.deltaTime;
 				if (struck)
 				{
-					stateMachine.transistion("stumble");
+					stateMachine.transition("stumble");
 					struck = false;
 					health.TakeDamage(10);
 					return;
@@ -80,7 +80,7 @@ public class AttackController : MonoBehaviour
 					hitable = true;
 				}
 			}
-			stateMachine.transistion("idle");
+			stateMachine.transition("idle");
 		}
     }
 	
