@@ -7,6 +7,9 @@ public class AttackController : MonoBehaviour
     public ParticleSystem fire;
     private Animator anim;
 	private CombatController stateMachine;
+	private bool striking = false, struck = false;
+	private string attackType;
+	public float blockDuration = 0.1f;
     InputManager input;
     // Start is called before the first frame update
     void Start()
@@ -19,20 +22,36 @@ public class AttackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis(input.leftAnalogY) > 0 && Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
+        if (Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
         {
-			stateMachine.transition("strike");
-            anim.SetTrigger("DownSmash");
-            fire.Play();
-			stateMachine.transition("idle");
-        }
-
-        else if (Input.GetAxis(input.leftAnalogY) < 0 && Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
-        {
-			stateMachine.transition("strike");
-            anim.SetTrigger("UpSmash");
-            fire.Play();
-			stateMachine.transition("idle");
+			striking = false;
+			if (Input.GetAxis(input.leftAnalogY) > 0)
+			{
+				striking = true;
+				attackType = "DownSmash";
+			}
+			else if (Input.GetAxis(input.leftAnalogY) < 0)
+			{
+				striking = true;
+				attackType = "UpSmash";
+			}
+			
+			if (striking)
+			{
+				stateMachine.transition("strike");
+				anim.SetTrigger(attackType);
+				fire.Play();
+				while (anim.IsPlaying(attackType))
+				{
+					if (struck)
+					{
+						stateMachine.transition("stumble");
+						struck = false;
+						return;
+					}
+				}
+				stateMachine.transition("idle");
+			}
         }
     }
 }
