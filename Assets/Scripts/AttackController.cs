@@ -7,9 +7,10 @@ public class AttackController : MonoBehaviour
     public ParticleSystem fire;
     private Animator anim;
 	private CombatController stateMachine;
-	private bool striking = false, struck = false;
+	private PlayerHealth health;
+	private bool striking = false, struck = false, hitable = true;
 	private string attackType;
-	public float blockDuration = 0.1f;
+	public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
     InputManager input;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class AttackController : MonoBehaviour
         input = GetComponent<InputManager>();
         anim = GetComponent<Animator>();
 		stateMachine = GetComponent<CombatController>();
+		health = GetComponent<>(PlayerHealth);
     }
 
     // Update is called once per frame
@@ -47,11 +49,48 @@ public class AttackController : MonoBehaviour
 					{
 						stateMachine.transition("stumble");
 						struck = false;
+						health.TakeDamage(10);
 						return;
 					}
 				}
 				stateMachine.transition("idle");
 			}
         }
+		else if (Input.GetButtonDown(input.aButton) && stateMachine.valid("block"))
+		{
+			stateMachine.transition("block");
+			anim.SetTrigger("block");
+			float counter = 0f;
+			while (counter <= blockDuration)
+			{
+				counter += Time.deltaTime;
+				if (struck)
+				{
+					stateMachine.transistion("stumble");
+					struck = false;
+					health.TakeDamage(10);
+					return;
+				}
+				else if (counter <= blockInvinsibility)
+				{
+					hitable = false;
+				}
+				else
+				{
+					hitable = true;
+				}
+			}
+			stateMachine.transistion("idle");
+		}
     }
+	
+	public bool getHit() 
+	{
+		if (hitable)
+		{
+			struck = true;
+			return true;
+		}
+		return false;
+	}
 }
