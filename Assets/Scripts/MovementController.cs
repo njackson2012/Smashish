@@ -35,29 +35,49 @@ public class MovementController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         if (controller.isGrounded)
         {
+            
             currentJumps = 0;
 
-            /*
+            
             if (Input.GetAxis(input.leftAnalogX) > 0f)
-            {
-                transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(90f), 0f);
-            }
-            else if (Input.GetAxis(input.leftAnalogX) < 0f)
             {
                 transform.rotation = Quaternion.Euler(0f, Mathf.Abs(90f), 0f);
             }
-            */
-
+            else if (Input.GetAxis(input.leftAnalogX) < 0f)
+            {
+                transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(90f), 0f);
+            }
+            
+            Debug.Log(moveDirection);
             moveDirection = new Vector3(Input.GetAxis(input.leftAnalogX), 0, 0);
             controller.Move(moveDirection * Time.deltaTime * walkSpeed);
-            if (moveDirection != Vector3.zero && stateMachine.valid("move"))
+
+            if (moveDirection != Vector3.zero)
             {
+               
+                
                 stateMachine.transition("move");
-                transform.forward = moveDirection;
+                //transform.forward = moveDirection;
             }
             else
             {
                 stateMachine.transition("idle");
+            }
+
+            if (Input.GetAxis(input.leftAnalogX) < -0.5 && Input.GetAxis(input.leftAnalogX) > 0.5)
+            {
+                anim.SetBool("Walk", false);
+                anim.SetBool("Run", true);
+            }
+            else if (Input.GetAxis(input.leftAnalogX) > -0.5 && Input.GetAxis(input.leftAnalogX) < 0.5)
+            {
+                anim.SetBool("Walk", true);
+                anim.SetBool("Run", false);
+            }
+            else
+            {
+                anim.SetBool("Walk", false);
+                anim.SetBool("Run", false);
             }
             //moveDirection = transform.TransformDirection(moveDirection);
             //moveDirection *= walkSpeed;
@@ -73,6 +93,7 @@ public class MovementController : MonoBehaviour
 
         else if (!controller.isGrounded)
         {
+            anim.SetBool("Walk", false);
             if (currentJumps == 0)
                 currentJumps = 1;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackController : MonoBehaviour
 {
-    public ParticleSystem fire;
+    //public ParticleSystem fire;
     private Animator anim;
 	private CombatController stateMachine;
 	private PlayerHealth health;
@@ -12,6 +12,7 @@ public class AttackController : MonoBehaviour
 	private string attackType;
 	public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
     InputManager input;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class AttackController : MonoBehaviour
 			{
 				stateMachine.transition("strike");
 				anim.SetTrigger(attackType);
-				fire.Play();
+				//fire.Play();
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
