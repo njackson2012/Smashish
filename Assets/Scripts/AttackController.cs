@@ -10,7 +10,12 @@ public class AttackController : MonoBehaviour
 	private PlayerHealth health;
 	private bool striking = false, struck = false, hitable = true;
 	private string attackType;
-	public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
+    public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
+
+    public ParticleSystem fire_hand;
+    public ParticleSystem fire_left;
+    public ParticleSystem fire_right;
+
     InputManager input;
 
     // Start is called before the first frame update
@@ -32,18 +37,20 @@ public class AttackController : MonoBehaviour
 			{
 				striking = true;
 				attackType = "DownSmash";
-			}
+                fire_right.Play();
+                fire_left.Play();
+            }
 			else if (Input.GetAxis(input.leftAnalogY) < 0)
 			{
 				striking = true;
 				attackType = "UpSmash";
-			}
+                fire_left.Play();
+            }
 			
 			if (striking)
 			{
 				stateMachine.transition("strike");
 				anim.SetTrigger(attackType);
-				//fire.Play();
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
