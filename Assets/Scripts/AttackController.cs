@@ -46,11 +46,18 @@ public class AttackController : MonoBehaviour
 				attackType = "UpSmash";
                 fire_left.Play();
             }
+            else
+            {
+                striking = true;
+                attackType = "SideSmash";
+                fire_left.Play();
+            }
 			
 			if (striking)
 			{
 				stateMachine.transition("strike");
 				anim.SetTrigger(attackType);
+                /*
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
@@ -61,6 +68,7 @@ public class AttackController : MonoBehaviour
 						return;
 					}
 				}
+                */
 				stateMachine.transition("idle");
 			}
         }
