@@ -12,6 +12,7 @@ public class StrikingPointLogic : MonoBehaviour
 	{
         state = mySelf.GetComponent<CombatController>();
         health = myEnemy.GetComponent<PlayerHealth>();
+		GetComponent<Collider>().enabled = false;
 	}
 	
 	void Update()

@@ -11,6 +11,7 @@ public class AttackController : MonoBehaviour
 	private bool striking = false, struck = false, hitable = true;
 	private string attackType;
     public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
+	public GameObject leftFoot, rightFoot, leftHand, rightHand;
 
     public AudioSource sound;
 
@@ -61,20 +62,32 @@ public class AttackController : MonoBehaviour
 
             if (striking)
             {
+				leftFoot.GetComponent<Collider>().enabled = true;
+				leftHand.GetComponent<Collider>().enabled = true;
+				rightFoot.GetComponent<Collider>().enabled = true;
+				rightHand.GetComponent<Collider>().enabled = true;
                 stateMachine.transition("strike");
                 anim.SetTrigger(attackType);
-                /*
+                
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
 					{
 						stateMachine.transition("stumble");
+						anim.SetTrigger("HitStun");
 						struck = false;
 						health.TakeDamage(10);
+						leftFoot.GetComponent<Collider>().enabled = false;
+						leftHand.GetComponent<Collider>().enabled = false;
+						rightFoot.GetComponent<Collider>().enabled = false;
+						rightHand.GetComponent<Collider>().enabled = false;
 						return;
 					}
 				}
-                */
+                leftFoot.GetComponent<Collider>().enabled = false;
+				leftHand.GetComponent<Collider>().enabled = false;
+				rightFoot.GetComponent<Collider>().enabled = false;
+				rightHand.GetComponent<Collider>().enabled = false;
                 stateMachine.transition("idle");
             }
         }
