@@ -12,6 +12,8 @@ public class AttackController : MonoBehaviour
 	private string attackType;
     public float blockDuration = 0.75f, blockInvinsibility = 0.20f;
 
+    public AudioSource sound;
+
     public ParticleSystem fire_hand;
     public ParticleSystem fire_left;
     public ParticleSystem fire_right;
@@ -21,6 +23,7 @@ public class AttackController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         input = GetComponent<InputManager>();
         anim = GetComponent<Animator>();
 		stateMachine = GetComponent<CombatController>();
@@ -32,18 +35,21 @@ public class AttackController : MonoBehaviour
     {
         if (Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
         {
-			striking = false;
-			if (Input.GetAxis(input.leftAnalogY) > 0)
-			{
-				striking = true;
-				attackType = "DownSmash";
+            sound.Play();
+            striking = false;
+            if (Input.GetAxis(input.leftAnalogY) > 0)
+            {
+                striking = true;
+                attackType = "DownSmash";
                 fire_right.Play();
                 fire_left.Play();
+                var sideSmashClip = Resources.Load<AudioClip>("punch");
+
             }
-			else if (Input.GetAxis(input.leftAnalogY) < 0)
-			{
-				striking = true;
-				attackType = "UpSmash";
+            else if (Input.GetAxis(input.leftAnalogY) < 0)
+            {
+                striking = true;
+                attackType = "UpSmash";
                 fire_left.Play();
             }
             else
@@ -52,11 +58,11 @@ public class AttackController : MonoBehaviour
                 attackType = "SideSmash";
                 fire_left.Play();
             }
-			
-			if (striking)
-			{
-				stateMachine.transition("strike");
-				anim.SetTrigger(attackType);
+
+            if (striking)
+            {
+                stateMachine.transition("strike");
+                anim.SetTrigger(attackType);
                 /*
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
@@ -69,10 +75,10 @@ public class AttackController : MonoBehaviour
 					}
 				}
                 */
-				stateMachine.transition("idle");
-			}
+                stateMachine.transition("idle");
+            }
         }
-		else if (Input.GetButtonDown(input.aButton) && stateMachine.valid("block"))
+        else if ((Input.GetButtonDown(input.lbButton) || Input.GetButtonDown(input.rbButton)) && stateMachine.valid("block"))
 		{
 			stateMachine.transition("block");
 			anim.SetTrigger("block");
@@ -109,4 +115,18 @@ public class AttackController : MonoBehaviour
 		}
 		return false;
 	}
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
+    {
+
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+
+        return newAudio;
+
+    }
 }

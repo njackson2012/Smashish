@@ -5,8 +5,13 @@ using UnityEngine;
 public class StrikingPointLogic : MonoBehaviour
 {
 	public GameObject mySelf, myEnemy;
+    PlayerHealth health;
+    CombatController state;
+
 	void Start()
 	{
+        state = mySelf.GetComponent<CombatController>();
+        health = myEnemy.GetComponent<PlayerHealth>();
 	}
 	
 	void Update()
@@ -17,6 +22,8 @@ public class StrikingPointLogic : MonoBehaviour
 	{
 		if (other.name == myEnemy.name)
 		{
+            if(state.valid("strike"))
+                health.TakeDamage(10);
 			if (! other.GetComponent<AttackController>().getHit())
 			{
 				mySelf.GetComponent<AttackController>().getHit();

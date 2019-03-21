@@ -20,9 +20,10 @@ public class GameManager : MonoBehaviour
     PlayerHealth playerOneHP;
     PlayerHealth playerTwoHP;
 
-    // Start is called before the first frame update
+   
     void Start()
     {
+
         Time.timeScale = 1.0f;
         gameOver = false;
 
