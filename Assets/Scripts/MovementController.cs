@@ -64,21 +64,22 @@ public class MovementController : MonoBehaviour
                 stateMachine.transition("idle");
             }
 
-            if (Input.GetAxis(input.leftAnalogX) < -0.5 && Input.GetAxis(input.leftAnalogX) > 0.5)
+            if (moveDirection.x.Equals(0))
+            {
+                anim.SetBool("Walk", false);
+                anim.SetBool("Run", false);
+            }
+            else if (moveDirection.x.Equals(1) || moveDirection.x.Equals(-1))
             {
                 anim.SetBool("Walk", false);
                 anim.SetBool("Run", true);
             }
-            else if (Input.GetAxis(input.leftAnalogX) > -0.5 && Input.GetAxis(input.leftAnalogX) < 0.5)
+            else
             {
                 anim.SetBool("Walk", true);
                 anim.SetBool("Run", false);
             }
-            else
-            {
-                anim.SetBool("Walk", false);
-                anim.SetBool("Run", false);
-            }
+
             //moveDirection = transform.TransformDirection(moveDirection);
             //moveDirection *= walkSpeed;
 
