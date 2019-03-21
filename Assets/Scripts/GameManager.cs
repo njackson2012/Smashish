@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 gameOverMenu.SetActive(true);
+                ES.SetSelectedGameObject(GameObject.Find("RematchButton"));
                 Time.timeScale = 0;
             }
 

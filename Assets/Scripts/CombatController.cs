@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-	bool striking = false, moving = false, blocking = false, stumbling = false, inAir = false;
+	public bool striking = false, moving = false, blocking = false, stumbling = false, inAir = false;
 	
     void Start()
 	{

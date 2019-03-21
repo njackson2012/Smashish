@@ -37,14 +37,14 @@ public class AttackController : MonoBehaviour
         if (Input.GetButtonDown(input.bButton) && stateMachine.valid("strike"))
         {
             sound.Play();
-            striking = false;
+            struck = false;
             if (Input.GetAxis(input.leftAnalogY) > 0)
             {
+                
                 striking = true;
                 attackType = "DownSmash";
                 fire_right.Play();
                 fire_left.Play();
-                var sideSmashClip = Resources.Load<AudioClip>("punch");
 
             }
             else if (Input.GetAxis(input.leftAnalogY) < 0)
@@ -57,38 +57,32 @@ public class AttackController : MonoBehaviour
             {
                 striking = true;
                 attackType = "SideSmash";
-                fire_left.Play();
+                fire_hand.Play();
             }
 
             if (striking)
             {
-				leftFoot.GetComponent<Collider>().enabled = true;
-				leftHand.GetComponent<Collider>().enabled = true;
-				rightFoot.GetComponent<Collider>().enabled = true;
-				rightHand.GetComponent<Collider>().enabled = true;
-                stateMachine.transition("strike");
                 anim.SetTrigger(attackType);
-                
+                stateMachine.transition("strike");
+                leftFoot.GetComponent<Collider>().enabled = true;
+                leftHand.GetComponent<Collider>().enabled = true;
+                rightFoot.GetComponent<Collider>().enabled = true;
+                rightHand.GetComponent<Collider>().enabled = true;
+                /*
 				while (anim.GetCurrentAnimatorStateInfo(0).IsName(attackType))
 				{
 					if (struck)
 					{
-						stateMachine.transition("stumble");
+						//stateMachine.transition("stumble");
 						anim.SetTrigger("HitStun");
 						struck = false;
 						health.TakeDamage(10);
-						leftFoot.GetComponent<Collider>().enabled = false;
-						leftHand.GetComponent<Collider>().enabled = false;
-						rightFoot.GetComponent<Collider>().enabled = false;
-						rightHand.GetComponent<Collider>().enabled = false;
 						return;
 					}
 				}
-                leftFoot.GetComponent<Collider>().enabled = false;
-				leftHand.GetComponent<Collider>().enabled = false;
-				rightFoot.GetComponent<Collider>().enabled = false;
-				rightHand.GetComponent<Collider>().enabled = false;
-                stateMachine.transition("idle");
+                */
+
+                //stateMachine.transition("idle");
             }
         }
         else if ((Input.GetButtonDown(input.lbButton) || Input.GetButtonDown(input.rbButton)) && stateMachine.valid("block"))
@@ -129,17 +123,4 @@ public class AttackController : MonoBehaviour
 		return false;
 	}
 
-    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
-    {
-
-        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
-
-        newAudio.clip = clip;
-        newAudio.loop = loop;
-        newAudio.playOnAwake = playAwake;
-        newAudio.volume = vol;
-
-        return newAudio;
-
-    }
 }

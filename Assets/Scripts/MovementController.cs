@@ -48,7 +48,6 @@ public class MovementController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(90f), 0f);
             }
             
-            Debug.Log(moveDirection);
             moveDirection = new Vector3(Input.GetAxis(input.leftAnalogX), 0, 0);
             controller.Move(moveDirection * Time.deltaTime * walkSpeed);
 
@@ -85,7 +84,8 @@ public class MovementController : MonoBehaviour
 
             if ((Input.GetButtonDown(input.xButton) || Input.GetButtonDown(input.yButton)) && stateMachine.valid("jump"))
             {
-				stateMachine.transition("jump");
+                anim.SetTrigger("Jump");
+                stateMachine.transition("jump");
                 moveDirection.y = jumpHeight;
                 currentJumps++;
 				stateMachine.transition("idle");
@@ -95,6 +95,8 @@ public class MovementController : MonoBehaviour
         else if (!controller.isGrounded)
         {
             anim.SetBool("Walk", false);
+            anim.SetBool("Run", false);
+            
             if (currentJumps == 0)
                 currentJumps = 1;
 
@@ -112,6 +114,7 @@ public class MovementController : MonoBehaviour
                     }
                     moveDirection.y = jumpHeight;
                     currentJumps++;
+                    anim.SetTrigger("Jump");
                 }
 
 

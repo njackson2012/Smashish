@@ -12,8 +12,8 @@ public class StrikingPointLogic : MonoBehaviour
 	{
         state = mySelf.GetComponent<CombatController>();
         health = myEnemy.GetComponent<PlayerHealth>();
-		GetComponent<Collider>().enabled = false;
-	}
+        GetComponent<Collider>().enabled = false;
+    }
 	
 	void Update()
 	{
@@ -23,9 +23,16 @@ public class StrikingPointLogic : MonoBehaviour
 	{
 		if (other.name == myEnemy.name)
 		{
-            if(state.valid("strike"))
+            if (state.striking)
+            {
+                Debug.Log("hit");
+                string line = mySelf.name + " hit " + myEnemy.name + " with " + transform.parent.name + "\n";
+                System.IO.File.AppendAllText(@".\WriteLines.txt", line);
                 health.TakeDamage(10);
-			if (! other.GetComponent<AttackController>().getHit())
+                GetComponent<Collider>().enabled = false;
+
+            }
+            if (! other.GetComponent<AttackController>().getHit())
 			{
 				mySelf.GetComponent<AttackController>().getHit();
 				mySelf.GetComponent<CombatController>().transition("stumble");
